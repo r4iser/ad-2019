@@ -1,7 +1,13 @@
 const Amigo = require('../models/Amigo');
 
+function getRandomInt(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min)) + min;
+  }
+
 //Listar
-exports.listAmigos_get = async (req, res) => {
+exports.amigosList = async (req, res) => {
     try {
         const Amigos = await Amigo.find();
         res.json(Amigos);
@@ -11,7 +17,7 @@ exports.listAmigos_get = async (req, res) => {
 };
 
 //Cadastrar
-exports.registerAmigos_post = async (req, res) => {
+exports.amigosRegister = async (req, res) => {
     const amigo = new Amigo({
         name: req.body.name,
         email: req.body.email,
@@ -26,7 +32,7 @@ exports.registerAmigos_post = async (req, res) => {
     };
 
     //Editar
-    exports.updateAmigos_patch = async (req, res) => {
+    exports.amigosUpdate = async (req, res) => {
         try {
             const updateAmigo = await Amigo.updateOne({ _id : req.params.AmigoId },
                 { $set : { name : req.body.name, email : req.body.email, amigo : req.body.amigo } }
@@ -38,7 +44,7 @@ exports.registerAmigos_post = async (req, res) => {
     };
 
     //Apagar
-    exports.removeAmigos_delete =  async (req, res) => {
+    exports.amigosDelete =  async (req, res) => {
         try {
             const removePost = await Amigo.remove({ _id : req.params.AmigoId });
             res.json(removePost);
@@ -48,10 +54,30 @@ exports.registerAmigos_post = async (req, res) => {
     };
 
     //Sortear
-    exports.sortAmigos_get =  async (req, res) => {
+    exports.amigosSort =  async (req, res) => {
         try {
-            const posts = await Amigo.find();
-            res.json(posts);
+            const amigos = await Amigo.find();
+            amigos.forEach(async (element, index, array) => {
+                let size = amigos.length;
+                let roll = getRandomInt(0, size);
+                let sorted_id = amigos[roll]._id;   //Pega um id random de amigos[] em cada run
+                try {
+                    await Amigo.updateOne({ _id : sorted_id },
+                    { $set : { amigo : element._id } } );
+                    console.log(index);
+                    amigos.splice(index, 1);
+                    console.log(amigos);
+                    console.log("-----");
+                } catch(err) {
+                    res.json({message: err});
+                }
+            });
+
+
+
+            //pick = amigos.forEach(getRandomId);
+
+            res.json({ sorted_id });
         }catch(err) {
             res.json({message: err});
         }
