@@ -7,8 +7,8 @@ const Amigo = require('./models/Amigo');
 //Listar
 routes.get('/ListAmigos', async (req, res) => {
     try {
-        const posts = await Amigo.find();
-        res.json(posts);
+        const Amigos = await Amigo.find();
+        res.json(Amigos);
     }catch(err) {
         res.json({message: err});
     }
@@ -16,34 +16,36 @@ routes.get('/ListAmigos', async (req, res) => {
 
 //Cadastrar
 routes.post('/CreateAmigos', async (req, res) => {
-    const post = new Amigo({
+    const amigo = new Amigo({
         name: req.body.name,
         email: req.body.email,
         amigo: null
     });
     try {
-    const savedPost = await post.save();
-    res.json(savedPost);
+    const savedAmigo = await amigo.save();
+    res.json(savedAmigo);
     } catch(err) {
         res.json({message: err});
     }
     });
 
 //Editar
-    routes.get('/EditAmigos', async (req, res) => {
+    routes.patch('/UpdateAmigos/:AmigoId', async (req, res) => {
         try {
-            const posts = await Amigo.find();
-            res.json(posts);
+            const updateAmigo = await Amigo.updateOne({ _id : req.params.AmigoId },
+                { $set : { name : req.body.name, email : req.body.email, amigo : req.body.amigo } }
+            );
+            res.json(updateAmigo);
         }catch(err) {
             res.json({message: err});
         }
     });
 
 //Apagar
-    routes.get('/DeleteAmigos', async (req, res) => {
+    routes.delete('/RemoveAmigos/:AmigoId', async (req, res) => {
         try {
-            const posts = await Amigo.find();
-            res.json(posts);
+            const removePost = await Amigo.remove({ _id : req.params.AmigoId });
+            res.json(removePost);
         }catch(err) {
             res.json({message: err});
         }
