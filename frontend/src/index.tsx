@@ -1,10 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App';
+import ListAmigos from './pages/ListAmigos/ListAmigos';
+
+
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <ListAmigos />
   </React.StrictMode>,
   document.getElementById('root')
 );

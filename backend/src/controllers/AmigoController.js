@@ -9,8 +9,8 @@ function getRandomInt(min, max) {
 //Listar
 exports.amigosList = async (req, res) => {
     try {
-        const Amigos = await Amigo.find();
-        res.json(Amigos);
+        const amigos = await Amigo.find();
+        res.json(amigos);
     }catch(err) {
         res.json({message: err});
     }
@@ -62,8 +62,9 @@ exports.amigosRegister = async (req, res) => {
                 let roll = getRandomInt(0, size);
                 let sorted_id = amigos[roll]._id;   //Pega um id random de amigos[] em cada run
                 try {
-                    await Amigo.updateOne({ _id : sorted_id },
-                    { $set : { amigo : element._id } } );
+                    //TODO: Checar se o sorteado sorteou à 
+                    await Amigo.updateOne({ _id : sorted_id },  //Delivera o id da atual iteração
+                    { $set : { amigo : element._id } } );       //como amigo sorteado do Amigo sorted_id
                     console.log(index);
                     amigos.splice(index, 1);
                     console.log(amigos);
