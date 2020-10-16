@@ -1,12 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import ListAmigos from './components/ListAmigos';
-import PortalExampleControlled from './components/CreateAmigoPortal';
+import App from '../src/App';
 
 ReactDOM.render(
   <React.StrictMode>
-    <PortalExampleControlled/>
-    <ListAmigos />
+    <App />
   </React.StrictMode>,
   document.getElementById('root')
 );

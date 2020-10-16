@@ -1,22 +1,22 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
 
+
 body, input, button {
     font-family: Roboto, Arial, Helvetica, sans-serif;
 }
 
-div.container {
-    max-width: 500px;
-    width: 20%;
+div.listButtons{
     display: flex;
-    margin-top: 1%;
-    margin-bottom: 2%;
 }
 
 ul.amigos-list {
-    width: 100%;
     list-style: none;
     display: flexbox;
-    grid-template-columns: 10fr;
     font-weight: 400;
     font-size: 20px;
+}
+
+div.staticButtons {
+    width: 100%;
+    display: flex;
 }

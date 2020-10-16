@@ -3,7 +3,7 @@ import { Form, Button, Grid, Header, Segment, Portal } from 'semantic-ui-react';
 
 import {api} from '../axios_api';
 
-export default class CreateAmigoPortal extends Component {
+export default class UpdateAmigos extends Component {
   state = { open: false }
   state = { name: '', email: '', submittedName: '', submittedEmail: '' }
 
@@ -17,7 +17,7 @@ export default class CreateAmigoPortal extends Component {
 
     this.setState({ name, email })
 
-    await api.post("/CreateAmigos", {
+    await api.patch(`/UpdateAmigos/${this.props.title}`, {
       name : name,
       email : email,
     });
@@ -32,9 +32,8 @@ export default class CreateAmigoPortal extends Component {
       <Grid columns={2}>
         <Grid.Column>
           <Button
-            content='Adicionar'
+            content='Editar'
             disabled={open}
-            positive
             onClick={this.handleOpen}
           />
 
@@ -47,7 +46,7 @@ export default class CreateAmigoPortal extends Component {
                 zIndex: 1000,
               }}
             >
-              <Header>Adicionar amigo</Header>
+              <Header>Editar amigo</Header>
               <Form onSubmit={this.handleSubmit}>
               <Form.Group>
                 <Form.Input

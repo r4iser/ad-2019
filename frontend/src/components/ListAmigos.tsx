@@ -1,23 +1,21 @@
-import './ListAmigos.css';
 import React, { useState, useEffect } from 'react';
-import { Button, Icon } from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css';
 import { api }  from '../axios_api';
 
+import DeleteButtonAmigo from './DeleteButtonAmigo';
+import UpdateAmigos from './UpdateAmigos';
 
 export default function ListAmigos() {
 
-  const [ amigos, setAmigos ] = useState<any[]>([])
-  
+  const [ amigos, setAmigos ] = useState<any[]>([]);
+
   useEffect(() => {
     async function loadAmigos() {
       const response = await api.get("/ListAmigos");
-      console.log(response.data);
       setAmigos(response.data);
-      console.log(amigos);
     }
     loadAmigos();
-  }, [amigos]);
+  }, [amigos]); //Todo refresh ao adicionar novo amigo
   return (
     <>
     <div className="container">
@@ -27,14 +25,11 @@ export default function ListAmigos() {
             { amigo.name }
             <br/>
             { amigo.email }
-            <Button className="btn-delete" negative>
-              <Icon name="delete"/>
-              Deletar
-            </Button>
-            <Button>
-             <Icon name="edit"/>
-             Editar
-            </Button>
+            <br/>
+            <div className="listButtons">
+            < UpdateAmigos title={amigo._id} />
+            < DeleteButtonAmigo title={amigo._id} amigoName={amigo.name} />
+            </div>
           </li>
         ))}
       </ul>
