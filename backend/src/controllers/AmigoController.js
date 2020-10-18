@@ -59,28 +59,28 @@ exports.amigosRegister = async (req, res) => {
     exports.amigosSort =  async (req, res) => {
         try {
             const users = await Amigo.find();
-            let notSortedUsers = [...users];
-            const sortedUsers = [];
+
+            function shuffle(a) {
+                var j, x, i;
+                for (i = a.length - 1; i > 0; i--) {
+                    j = Math.floor(Math.random() * (i + 1));
+                    x = a[i];
+                    a[i] = a[j];
+                    a[j] = x;
+                }
+                return a;
+            }
+
+            const sortedUsers = shuffle(users); //Embaralha o array de amigos
 
             for (let i = 0; i < users.length; i++) {
-                const options = notSortedUsers.filter((u) => u._id !== users[i]._id);
-                // Filtro -> Não tirar o próprio ID
-                if (options.length === 0) {
-                    const userIndex = Math.floor(Math.random() * sortedUsers.length);
-                    await Amigo.updateOne({ _id : users[i]._id },  //Delivera o id da atual iteração
-                        { $set : { amigo : sortedUsers[userIndex]._id } } );       //como amigo sorteado do Amigo sorted_id
-                    sortedUsers[userIndex].amigo = users[i]._id;
-                    sortedUsers.push(users[i]);
-                    notSortedUsers = notSortedUsers.filter((u) => u._id !== users[i]._id);
-                    continue;
+                if(i == users.length - 1) {         //O último tira o primeiro
+                    await Amigo.updateOne({ _id : users[i]._id },
+                        { $set : { amigo : users[0]._id } } );
+                } else {                            //O restante tira o próximo
+                    await Amigo.updateOne({ _id : users[i]._id },
+                        { $set : { amigo : users[i+1]._id } } );
                 }
-                 // sorteia um
-                const index = Math.floor(Math.random() * options.length);
-                // define como amigo
-                await Amigo.updateOne({ _id : users[i]._id },  //Delivera o id da atual iteração
-                    { $set : { amigo : options[index]._id } } );       //como amigo sorteado do Amigo sorted_id
-                sortedUsers.push(options[index]);
-                //console.log("options");
 
             }
 
