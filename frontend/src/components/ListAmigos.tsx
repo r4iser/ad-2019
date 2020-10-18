@@ -3,7 +3,7 @@ import 'semantic-ui-css/semantic.min.css';
 import { api }  from '../axios_api';
 
 import DeleteButtonAmigo from './DeleteButtonAmigo';
-import UpdateAmigos from './UpdateAmigos';
+import UpdateButtonAmigo from './UpdateButtonAmigo';
 
 export default function ListAmigos() {
 
@@ -27,7 +27,7 @@ export default function ListAmigos() {
             { amigo.email }
             <br/>
             <div className="listButtons">
-            < UpdateAmigos title={amigo._id} />
+            < UpdateButtonAmigo title={amigo._id} amigoName={amigo.name}  amigoEmail={amigo.email} />
             < DeleteButtonAmigo title={amigo._id} amigoName={amigo.name} />
             </div>
           </li>

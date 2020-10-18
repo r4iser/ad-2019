@@ -51,12 +51,15 @@ export default class CreateAmigoPortal extends Component {
               <Form onSubmit={this.handleSubmit}>
               <Form.Group>
                 <Form.Input
+                  required={true}
                   placeholder='Nome'
                   name='name'
                   value={name}
                   onChange={this.handleChange}
                 />
                 <Form.Input
+                  type="email"
+                  required={true}
                   placeholder='Email'
                   name='email'
                   value={email}
