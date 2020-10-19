@@ -1,5 +1,7 @@
+const email_api = require('../services/emailSend');
 const Amigo = require('../models/Amigo');
 
+const sendEmail = require('../services/emailSend');
 
 
 function getRandomInt(min, max) {
@@ -81,10 +83,22 @@ exports.amigosRegister = async (req, res) => {
                     await Amigo.updateOne({ _id : users[i]._id },
                         { $set : { amigo : users[i+1]._id } } );
                 }
-
             }
 
         }catch(err) {
             res.json({message: err});
         }
     };
+
+    exports.amigosMail = async (req, res) => {
+        try {  //Adicionar email à todos
+            const users = await Amigo.find();
+            for (let i = 0; i < users.length; i++) {
+                console.log('teste');
+                sendEmail(users[i].name, users[i].amigo);  
+            }
+
+        }catch(err) {
+            console.log(err);
+        }
+    }

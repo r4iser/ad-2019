@@ -12,6 +12,6 @@ routes.patch('/UpdateAmigos/:AmigoId', AmigoController.amigosUpdate);
 //Apagar
 routes.delete('/RemoveAmigos/:AmigoId', AmigoController.amigosDelete);
 //Sortear
-routes.get('/SortAmigos', AmigoController.amigosSort);
+routes.get('/SortAmigos', AmigoController.amigosMail);
 
 module.exports = routes;

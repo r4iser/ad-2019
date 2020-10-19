@@ -29,8 +29,7 @@ export default class CreateAmigoPortal extends Component {
     const { open } = this.state
 
     return (
-      <Grid columns={2}>
-        <Grid.Column>
+<>
           <Button
             content='Adicionar'
             disabled={open}
@@ -70,8 +69,8 @@ export default class CreateAmigoPortal extends Component {
               </Form>
             </Segment>
           </Portal>
-        </Grid.Column>
-      </Grid>
+          </>
+
     )
   }
 }

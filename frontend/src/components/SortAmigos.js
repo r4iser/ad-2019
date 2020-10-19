@@ -11,7 +11,11 @@ class SortAmigos extends Component {
     const { active } = this.state
 
     return (
-      <Button toggle active={active} onClick={this.handleClick}>
+      <Button
+      className="SortAmigos_btn"
+      toggle
+      active={active}
+      onClick={this.handleClick}>
         Sortear
       </Button>
     )

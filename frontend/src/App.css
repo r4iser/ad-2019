@@ -1,22 +1,33 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
 
+header.App-header {
+    align-items: center;
+    justify-content: center;
+}
+
+Button.SortAmigos_btn {
+    width: 10%;
+    height: 10%;
+}
+
 
 body, input, button {
     font-family: Roboto, Arial, Helvetica, sans-serif;
+    width: 100%;
+    height: 100%;
 }
 
 div.listButtons{
-    display: flex;
+
 }
 
 ul.amigos-list {
     list-style: none;
-    display: flexbox;
     font-weight: 400;
     font-size: 20px;
 }
 
 div.staticButtons {
     width: 100%;
-    display: flex;
+
 }
